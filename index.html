@@ -4,140 +4,229 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NilTrade Pro - Indian Market</title>
+  <meta name="theme-color" content="#080d18">
+  <title>NilTrade Pro | Demo Trading Dashboard</title>
   <link rel="stylesheet" href="style.css">
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js" defer></script>
 </head>
+
 <body>
 
-  <aside class="sidebar">
-    <h2>📈 NilTrade Pro</h2>
-    <p>Indian Trading Terminal</p>
+<header class="topbar">
+  <div class="logo">
+    <span class="logo-icon">N</span>
+    <div>
+      <h1>NilTrade <span>PRO</span></h1>
+      <small>INDIA OPTIONS TRADING SIMULATOR</small>
+    </div>
+  </div>
 
-    <nav>
-      <a href="#dashboard">Dashboard</a>
-      <a href="#signals">CALL / PUT Signals</a>
-      <a href="#trading">Demo Trading</a>
-      <a href="#portfolio">Portfolio</a>
-    </nav>
+  <div class="market-status">
+    <span class="status-dot"></span>
+    SIMULATED MARKET
+  </div>
+</header>
 
-    <div class="demo-tag">● DEMO MODE</div>
-  </aside>
+<main class="container">
 
-  <main class="main-content">
+  <!-- MARKET OVERVIEW -->
+  <section class="market-grid">
 
-    <header>
-      <div>
-        <h1>Market Dashboard</h1>
-        <p>Indian Stock Market Simulator</p>
+    <div class="card market-card">
+      <div class="card-heading">
+        <span>NIFTY 50</span>
+        <span class="market-tag">NSE</span>
       </div>
-      <div class="market-status">● Simulator Running</div>
-    </header>
-
-    <div class="warning">
-      DEMO DATA ONLY — No real market orders or live exchange prices.
+      <h2 id="nifty">--</h2>
+      <p id="niftyChange" class="positive">0.00%</p>
+      <button class="secondary-btn" onclick="selectMarket('NIFTY')">
+        View NIFTY Chart
+      </button>
     </div>
 
-    <section class="market-cards" id="dashboard">
+    <div class="card market-card">
+      <div class="card-heading">
+        <span>SENSEX</span>
+        <span class="market-tag">BSE</span>
+      </div>
+      <h2 id="sensex">--</h2>
+      <p id="sensexChange" class="positive">0.00%</p>
+      <button class="secondary-btn" onclick="selectMarket('SENSEX')">
+        View SENSEX Chart
+      </button>
+    </div>
 
-      <div class="card">
-        <h3>NIFTY 50</h3>
-        <h1 id="nifty">24250.00</h1>
-        <p id="niftyChange">+0.00%</p>
+    <div class="card wallet-card">
+      <div class="card-heading">
+        <span>DEMO WALLET</span>
+        <span>₹</span>
+      </div>
+      <h2 id="balance">₹1,00,000</h2>
+      <p class="muted">Available Virtual Balance</p>
+      <div class="wallet-footer">
+        Booked P&L:
+        <strong id="bookedProfit">₹0</strong>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CHART SECTION -->
+  <section class="card chart-card">
+    <div class="section-heading">
+      <div>
+        <h2>Market Analysis</h2>
+        <p class="muted">Simulated price movement</p>
+      </div>
+      <span class="live-label">
+        <span class="status-dot"></span>
+        DEMO LIVE
+      </span>
+    </div>
+
+    <div class="chart-controls">
+      <button onclick="selectMarket('NIFTY')">NIFTY 50</button>
+      <button onclick="selectMarket('SENSEX')">SENSEX</button>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="marketChart"></canvas>
+    </div>
+  </section>
+
+  <!-- INDICATORS -->
+  <section class="card">
+    <div class="section-heading">
+      <div>
+        <h2>Technical Indicators</h2>
+        <p class="muted">EMA and RSI calculations</p>
+      </div>
+    </div>
+
+    <div class="indicator-grid">
+      <div class="indicator">
+        <span>EMA 9</span>
+        <strong id="ema9">--</strong>
       </div>
 
-      <div class="card">
-        <h3>SENSEX</h3>
-        <h1 id="sensex">79800.00</h1>
-        <p id="sensexChange">+0.00%</p>
+      <div class="indicator">
+        <span>EMA 21</span>
+        <strong id="ema21">--</strong>
       </div>
 
-      <div class="card wallet">
-        <h3>Virtual Balance</h3>
-        <h1 id="balance">₹1,00,000</h1>
-        <p>Paper Trading Account</p>
+      <div class="indicator">
+        <span>RSI 14</span>
+        <strong id="rsi">--</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNAL -->
+  <section class="card signal-card">
+    <div class="section-heading">
+      <div>
+        <h2>Trading Signal</h2>
+        <p class="muted">Rule-based demo indicator</p>
+      </div>
+    </div>
+
+    <div class="signal-content">
+      <h2 id="signal">WAIT</h2>
+      <p id="signalText">
+        Collecting simulated price data...
+      </p>
+    </div>
+  </section>
+
+  <!-- DEMO TRADING -->
+  <section class="card trading-card">
+    <div class="section-heading">
+      <div>
+        <h2>Options Demo Trading</h2>
+        <p class="muted">Buy CALL or PUT using virtual money</p>
+      </div>
+      <span class="demo-badge">PAPER TRADE</span>
+    </div>
+
+    <div class="trade-form">
+
+      <div class="form-group">
+        <label for="tradeType">Option Type</label>
+        <select id="tradeType">
+          <option value="CALL">BUY CALL</option>
+          <option value="PUT">BUY PUT</option>
+        </select>
       </div>
 
-    </section>
-
-    <section class="panel">
-      <h2>Market Graph</h2>
-
-      <select id="market">
-        <option value="nifty">NIFTY 50</option>
-        <option value="sensex">SENSEX</option>
-      </select>
-
-      <div class="chart-box">
-        <canvas id="marketChart"></canvas>
-      </div>
-    </section>
-
-    <section class="panel" id="signals">
-      <h2>CALL / PUT Analysis</h2>
-
-      <div class="signal-box">
-        <h1 id="signal">WAIT</h1>
-        <p id="signalText">Analysing simulated market...</p>
+      <div class="form-group">
+        <label for="premium">Premium (₹)</label>
+        <input
+          type="number"
+          id="premium"
+          min="0.01"
+          step="0.01"
+          value="100"
+        >
       </div>
 
-      <div class="signal-info">
-        <p>EMA 9: <b id="ema9">--</b></p>
-        <p>EMA 21: <b id="ema21">--</b></p>
-        <p>RSI 14: <b id="rsi">--</b></p>
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input
+          type="number"
+          id="quantity"
+          min="1"
+          step="1"
+          value="1"
+        >
       </div>
-    </section>
 
-    <section class="panel" id="trading">
-      <h2>Demo Trading</h2>
-
-      <label>Trading Type</label>
-      <select id="tradeType">
-        <option value="CALL">BUY CALL</option>
-        <option value="PUT">BUY PUT</option>
-      </select>
-
-      <label>Premium Price (₹)</label>
-      <input type="number" id="premium" value="120" min="1">
-
-      <label>Quantity</label>
-      <input type="number" id="quantity" value="25" min="1">
-
-      <p>Estimated Cost: <b id="cost">₹3000</b></p>
-
-      <button onclick="buyTrade()">BUY TRADE</button>
-    </section>
-
-    <section class="panel" id="portfolio">
-      <h2>Open Positions</h2>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>Entry</th>
-              <th>Quantity</th>
-              <th>Current Premium</th>
-              <th>P&L</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="positions">
-            <tr>
-              <td colspan="6">No open positions</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="trade-cost">
+        <span>Total Investment</span>
+        <strong id="cost">₹100</strong>
       </div>
-    </section>
 
-    <footer>
-      NilTrade Pro © 2026 | Educational Paper Trading
-    </footer>
+      <button class="buy-btn" onclick="buyTrade()">
+        BUY DEMO TRADE
+      </button>
 
-  </main>
+    </div>
+  </section>
 
-  <script src="app.js"></script>
+  <!-- OPEN POSITIONS -->
+  <section class="card positions-card">
+    <div class="section-heading">
+      <div>
+        <h2>Open Positions</h2>
+        <p class="muted">Your active demo trades</p>
+      </div>
+      <span class="demo-badge">PORTFOLIO</span>
+    </div>
+
+    <div id="positions" class="positions-list">
+      <p class="muted">No open positions yet.</p>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section class="disclaimer">
+    <strong>Important Disclaimer</strong>
+    <p>
+      NilTrade Pro is an educational demo trading simulator.
+      Market prices, option premiums and signals are simulated.
+      This platform does not provide verified live NSE/BSE data
+      and does not execute real trades. Signals are not financial
+      advice. Do not use them as a basis for actual investments.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 NilTrade Pro | Created by Nilkanth Patel</p>
+  <p>Demo Trading • Learn • Analyze • Practice</p>
+</footer>
+
 </body>
 </html>
