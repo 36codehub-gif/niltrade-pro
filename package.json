@@ -1,0 +1,22 @@
+
+{
+  "name": "niltrade-pro",
+  "version": "1.0.0",
+  "description": "NIFTY 50 and SENSEX demo options trading dashboard",
+  "main": "app.js",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "nifty50",
+    "sensex",
+    "options-trading",
+    "demo-trading"
+  ],
+  "author": "Nilkanth Patel",
+  "license": "MIT",
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}
