@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hospital OPD Receipt Demo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <h2>Hospital Receipt Management</h2>
+
+  <div class="editor">
+    <h3>Edit Hospital Details</h3>
+
+    <label>Hospital Name</label>
+    <input id="hospital" value="SAMPLE CARE HOSPITAL">
+
+    <label>Hospital Address</label>
+    <input id="hospitalAddress" value="Demo Hospital Address, City, State">
+
+    <label>Phone</label>
+    <input id="hospitalPhone" value="0000000000">
+
+    <label>Email / Website</label>
+    <input id="hospitalEmail" value="demo@example.com">
+
+    <label>UHID</label>
+    <input id="uhid" value="DEMO-UHID-001">
+
+    <label>Bill Number</label>
+    <input id="billNo" value="DEMO-OPD-001">
+
+    <label>Bill Date & Time</label>
+    <input id="billDate" type="datetime-local">
+
+    <label>Visit Number</label>
+    <input id="visitNo" value="DEMO-001">
+
+    <label>Patient Name</label>
+    <input id="patient" value="Sample Patient">
+
+    <label>Gender / Age</label>
+    <input id="genderAge" value="Male / 28 Years">
+
+    <label>Contact Number</label>
+    <input id="contact" value="0000000000">
+
+    <label>Patient Address</label>
+    <textarea id="patientAddress">Demo Address, City, State</textarea>
+
+    <label>Lab / RIS Number</label>
+    <input id="labNo" value="DEMO-LAB-001">
+
+    <label>Prescribed Doctor</label>
+    <input id="doctor" value="Demo Doctor">
+
+    <label>Department</label>
+    <input id="department" value="ORTHOPAEDICS">
+
+    <label>Corporate / Payer</label>
+    <input id="payer" value="SELF PAYING - DEMO">
+
+    <h3>Services / Items</h3>
+    <div id="itemsEditor"></div>
+    <button type="button" onclick="addItem()">+ Add Service</button>
+
+    <label>Discount ₹</label>
+    <input id="discount" type="number" value="0" min="0">
+
+    <label>Payment Method</label>
+    <select id="payment">
+      <option>Cash</option>
+      <option>UPI</option>
+      <option>Card</option>
+      <option>Other</option>
+    </select>
+
+    <label>Prepared By</label>
+    <input id="prepared" value="Demo Operator">
+
+    <br><br>
+    <button onclick="updateReceipt()">Update Receipt</button>
+    <button onclick="window.print()">Download PDF / Print</button>
+  </div>
+
+  <div class="receipt" id="receipt">
+
+    <div class="watermark">SAMPLE • NOT VALID</div>
+
+    <div class="hospital-header">
+      <div class="hospital-name" id="pHospital"></div>
+      <p id="pHospitalAddress"></p>
+      <p id="pHospitalPhone"></p>
+      <p id="pHospitalEmail"></p>
+    </div>
+
+    <div class="title">
+      <b>OUT PATIENT BILL CUM RECEIPT</b>
+      <small>SAMPLE COPY</small>
+    </div>
+
+    <div class="details">
+      <div class="detail-column">
+        <p>UHID <b id="pUhid"></b></p>
+        <p>Patient Name <b id="pPatient"></b></p>
+        <p>Gender/Age <b id="pGender"></b></p>
+        <p>Contact No <b id="pContact"></b></p>
+        <p>Address <b id="pAddress"></b></p>
+        <p>Lab/RIS No <b id="pLab"></b></p>
+      </div>
+
+      <div class="detail-column">
+        <p>Bill No <b id="pBillNo"></b></p>
+        <p>Bill Date Time <b id="pBillDate"></b></p>
+        <p>Visit No <b id="pVisit"></b></p>
+        <p>Presc. Doctor <b id="pDoctor"></b></p>
+        <p>Department <b id="pDepartment"></b></p>
+        <p>Payer <b id="pPayer"></b></p>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>SL</th>
+          <th>Code</th>
+          <th>Particulars</th>
+          <th>Rate</th>
+          <th>Unit</th>
+          <th>Total</th>
+          <th>Net Amt</th>
+          <th>Pat Amt</th>
+          <th>Payer Amt</th>
+        </tr>
+      </thead>
+      <tbody id="receiptItems"></tbody>
+    </table>
+
+    <div class="summary">
+      <div class="summary-box">
+        <p>Gross Amount: <b id="gross"></b></p>
+        <p>Net Amount: <b id="net"></b></p>
+        <p>Payer Amount: <b id="payerAmount"></b></p>
+        <p>Patient Amount: <b id="patientAmount"></b></p>
+        <p>Amount Received: <b id="received"></b></p>
+      </div>
+    </div>
+
+    <div class="payment-info">
+      <p>Payment Method: <b id="pPayment"></b></p>
+      <p>Amount in Words: <b id="words"></b></p>
+      <p>Prepared By: <b id="pPrepared"></b></p>
+    </div>
+
+    <div class="footer">
+      <span>Patient / Employee Signature</span>
+      <span>DEMO AUTHORISED PERSON</span>
+    </div>
+
+    <div class="notice">
+      SAMPLE / NOT VALID — NOT AN OFFICIAL HOSPITAL RECEIPT.
+      This template cannot be used as proof of payment or medical records.
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
